@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pick the Square</title>
+    <meta charset="UTF-8" />
+    <style>
+      .overlay {
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        cursor: pointer;
+        pointer-events: none;
+        font-size: xx-large;
+      }
+
+      .overlay #nextsquare {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: white;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: black;
+        font-size: 13rem;
+
+        transition: all 2s ease-in-out;
+      }
+
+      .container {
+        margin: 0 auto;
+        /* max-width: 800px; */
+        /* max-height: 800px; */
+      }
+      .board {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        width: 100%;
+      }
+      .row {
+        display: flex;
+        flex-direction: row;
+      }
+      .row:nth-child(odd) .square:nth-child(even) {
+        background-color: #da9862;
+      }
+      .row:nth-child(even) .square:nth-child(odd) {
+        background-color: #da9862;
+      }
+      .square {
+        border: 1px solid black;
+        height: calc(100vh / 8);
+        width: calc(100vh / 8);
+        /* height: auto; */
+        cursor: pointer;
+        display: flex;
+      }
+      .square::before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+      }
+      .square .number-label {
+        width: 100%;
+        height: 100%;
+        padding-left: 0.3em;
+        padding-top: 0.1em;
+      }
+      .square .letter-label {
+        position: absolute;
+      }
+      .gameinfo {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+      }
+      .gameinfo .score {
+        margin-left: auto;
+        display: flex;
+        flex-direction: row;
+      }
+      .gameinfo .score .span {
+        padding-right: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .gameinfo .score .count {
+        padding-right: 5px;
+        font-size: larger;
+        font-weight: bolder;
+        font-family: "Courier New", Courier, monospace;
+      }
+      .gameinfo .timer {
+        display: flex;
+        flex-direction: row;
+        align-self: flex-start;
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      #correct {
+        color: lightgreen;
+      }
+      #wrong {
+        color: red;
+      }
+      .controls {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+      }
+      .controls button {
+        background-color: lightgreen;
+        border: 0;
+        height: 25px;
+        font-weight: bolder;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay">
+      <div id="nextsquare"></div>
+    </div>
+    <div class="container">
+      <div class="gameinfo">
+        <div class="timer">
+          <span>Time Left:</span>
+          <div id="timer"></div>
+        </div>
+        <div class="score">
+          <span>Correct: </span>
+          <div class="count" id="correct">0</div>
+          <span> Incorrect:</span>
+          <div class="count" id="wrong">0</div>
+        </div>
+      </div>
+
+      <div class="board">
+        <div class="row">
+          <div id="a8" class="square">
+            <div class="white number-label">8</div>
+          </div>
+          <div id="b8" class="square"></div>
+          <div id="c8" class="square"></div>
+          <div id="d8" class="square"></div>
+          <div id="e8" class="square"></div>
+          <div id="f8" class="square"></div>
+          <div id="g8" class="square"></div>
+          <div id="h8" class="square">
+            <div class="black number-label">8</div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="a7" class="square">
+            <div class="white number-label">7</div>
+          </div>
+          <div id="b7" class="square"></div>
+          <div id="c7" class="square"></div>
+          <div id="d7" class="square"></div>
+          <div id="e7" class="square"></div>
+          <div id="f7" class="square"></div>
+          <div id="g7" class="square"></div>
+          <div id="h7" class="square">
+            <div class="black number-label">7</div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="a6" class="square">
+            <div class="white number-label">6</div>
+          </div>
+          <div id="b6" class="square"></div>
+          <div id="c6" class="square"></div>
+          <div id="d6" class="square"></div>
+          <div id="e6" class="square"></div>
+          <div id="f6" class="square"></div>
+          <div id="g6" class="square"></div>
+          <div id="h6" class="square">
+            <div class="black number-label">6</div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="a5" class="square">
+            <div class="white number-label">5</div>
+          </div>
+          <div id="b5" class="square"></div>
+          <div id="c5" class="square"></div>
+          <div id="d5" class="square"></div>
+          <div id="e5" class="square"></div>
+          <div id="f5" class="square"></div>
+          <div id="g5" class="square"></div>
+          <div id="h5" class="square">
+            <div class="black number-label">5</div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="a4" class="square">
+            <div class="white number-label">4</div>
+          </div>
+          <div id="b4" class="square"></div>
+          <div id="c4" class="square"></div>
+          <div id="d4" class="square"></div>
+          <div id="e4" class="square"></div>
+          <div id="f4" class="square"></div>
+          <div id="g4" class="square"></div>
+          <div id="h4" class="square">
+            <div class="black number-label">4</div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="a3" class="square">
+            <div class="white number-label">3</div>
+          </div>
+          <div id="b3" class="square"></div>
+          <div id="c3" class="square"></div>
+          <div id="d3" class="square"></div>
+          <div id="e3" class="square"></div>
+          <div id="f3" class="square"></div>
+          <div id="g3" class="square"></div>
+          <div id="h3" class="square">
+            <div class="black number-label">3</div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="a2" class="square">
+            <div class="white number-label">2</div>
+          </div>
+          <div id="b2" class="square"></div>
+          <div id="c2" class="square"></div>
+          <div id="d2" class="square"></div>
+          <div id="e2" class="square"></div>
+          <div id="f2" class="square"></div>
+          <div id="g2" class="square"></div>
+          <div id="h2" class="square">
+            <div class="black number-label">2</div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="a1" class="square">
+            <div class="white number-label">1</div>
+            <div class="letter-label">A</div>
+          </div>
+          <div id="b1" class="square">
+            <div class="letter-label">B</div>
+          </div>
+          <div id="c1" class="square">
+            <div class="letter-label">C</div>
+          </div>
+          <div id="d1" class="square">
+            <div class="letter-label">D</div>
+          </div>
+          <div id="e1" class="square">
+            <div class="letter-label">E</div>
+          </div>
+          <div id="f1" class="square">
+            <div class="letter-label">F</div>
+          </div>
+          <div id="g1" class="square">
+            <div class="letter-label">G</div>
+          </div>
+          <div id="h1" class="square">
+            <div class="letter-label">H</div>
+            <div class="black number-label">1</div>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="startgame" onclick="startGame()">Start Game</button>
+      </div>
+    </div>
+    <div id="message">Start!</div>
+    <script src="game.js"></script>
+  </body>
+</html>
