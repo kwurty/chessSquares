@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bryan Rowler</title>
+    <link rel="stylesheet" href="css.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <span id="circle" class="circle"></span>
+    <div id="modal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" id="close">&times;</span>
+            <div class="form">
+                <label for="titleInput"> Title </label>
+                <input type=" text" name="titleInput" id="titleInput">
+                <label for="sloganInput"> Slogan </label>
+                <input type="text" name="sloganInput" id="sloganInput">
+                <button onclick="changeLabels()" id="labelchange"> Submit </button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="billboard" id="billboard">
+
+            <canvas id="canvas"></canvas>
+            <div class="headshot">
+                <img src="ryan.png" id="image" />
+            </div>
+            <div class="name">
+                <h1>
+                    Bryan Rowler
+                </h1>
+                <h2 id="title">
+                    Bird Attorney
+                </h2>
+            </div>
+            <div class="slogan">
+                <h3 id="slogan"></h3>
+            </div>
+        </div>
+
+    </div>
+    <div class="options">
+        <div>
+            <input type="color" id="paint" name="paint" value="#000000">
+            <label for="paint">Paint color</label>
+        </div>
+        <div>
+            <input type="range" name="size" id="brushsize" value="10" max="50">
+            <label for="brushsize">Brush Size</label>
+        </div>
+
+        <div>
+            <i class="fas fa-paint-brush fa-2x is-active" id="paintbrush"></i>
+            <i class="fas fa-eraser fa-2x" id="eraser"></i>
+        </div>
+        <div>
+            <button onclick="openModal()"> Custom Labels </button>
+        </div>
+    </div>
+    <div class="download" onclick="download()">
+        <i class="fas fa-download"></i>
+        <label>Download your image!</label>
+    </div>
+    <script type="module" src="html2canvas.min.js"></script>
+    <script src="js.js"></script>
+</body>
+
+</html>
